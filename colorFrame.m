@@ -17,7 +17,6 @@ function color = colorFrame(frame,steepness=0.05)
   endfor
 
   color = sig(frame);
-  %color = frame;
   color(isnan(color)) = 255;
   color = color - min(min(color));
   color = color ./ max(max(color));
