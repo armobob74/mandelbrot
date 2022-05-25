@@ -1,14 +1,14 @@
 function color = colorFrame(frame,steepness=0.05)
-  sig = @(x) 255 ./ (1 + exp(-steepness .* x));
+  $sig = @(x) 255 ./ (1 + exp(-steepness .* x));
   f = @(z,c) z.*z + c;
 
   original_frame = frame;
   frame = f(0,original_frame);
 
-  for i = 1:30
+  num_iterations = 30
+  for i = 1:num_iterations
     frame = f(frame,original_frame);
   endfor
-
 
   for i = 1:size(frame,1)
     for j = 1:size(frame,2)
@@ -16,8 +16,12 @@ function color = colorFrame(frame,steepness=0.05)
     endfor
   endfor
 
-  color = sig(frame);
-  color(isnan(color)) = 255;
+
+
+  color = frame;
+  color(color > 2) = 2;
+  color(color < 2) = 0;
+  color(isnan(color)) = 2;
   color = color - min(min(color));
   color = color ./ max(max(color));
   color = color * 255;
