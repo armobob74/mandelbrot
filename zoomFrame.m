@@ -1,4 +1,4 @@
-function frame = zoomFrame(zoom = 20,center = 0.26 + 0i,x_span = 5,y_span = 5,quality = 512)
+function frame = zoomFrame(zoom = 20,center = 0.26 + 0i,quality = 512,x_span = 2,y_span = 2)
 
 
 x_span = x_span / zoom;
