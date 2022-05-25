@@ -3,19 +3,19 @@ function color = colorFrame(frame,steepness=0.05)
   f = @(z,c) z.*z + c;
 
   original_frame = frame;
-  frame = f(0,original_frame);
 
   color = zeros(size(frame));
 
-  max_iterations = 50;
+  %notice that f(0,frame) == frame, so we can skip 0.
+  max_iterations = 255;
   for i = 1:max_iterations
-    frame = f(frame,original_frame);
+    j = (abs(frame) < 2);
+    color(j) = i;
+    frame(j) = f(frame(j),original_frame(j));
   endfor
 
-  color = abs(frame);
 
-  color(color > 2) = 2;
-  color(color < 2) = 0;
+  sum(color(color > 2))
   color(isnan(color)) = 2;
   color = color - min(min(color));
   color = color ./ max(max(color));
